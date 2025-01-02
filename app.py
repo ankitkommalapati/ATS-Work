@@ -10,18 +10,24 @@ def init_session_state():
     if 'processing' not in st.session_state:
         st.session_state.processing = False
 
+def get_api_key():
+    """Get API key from Streamlit secrets or local .env file"""
+    try:
+        # First, try to get from Streamlit secrets (for production)
+        return st.secrets["GOOGLE_API_KEY"]
+    except:
+        # Fallback to local .env file (for development)
+        load_dotenv()
+        return os.getenv("GOOGLE_API_KEY")
 
 def main():
-    # Load environment variables
-    load_dotenv()
-    
     # Initialize session state
     init_session_state()
     
-    # Configure Generative AI
-    api_key = os.getenv("GOOGLE_API_KEY")
+    # Get API key using the new function
+    api_key = get_api_key()
     if not api_key:
-        st.error("Please set the GOOGLE_API_KEY in your .env file")
+        st.error("API Key not found. Please check your configuration.")
         return
         
     try:
@@ -80,7 +86,13 @@ def main():
                 
                 # Get and parse response
                 response = get_gemini_response(input_prompt)
-                response_json = json.loads(response)
+                
+                # Add error handling for JSON parsing
+                try:
+                    response_json = json.loads(response)
+                except json.JSONDecodeError as e:
+                    st.error("Error parsing response. Please try again.")
+                    return
                 
                 # Display results
                 st.success("✨ Analysis Complete!")

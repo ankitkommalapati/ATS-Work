@@ -83,7 +83,7 @@ def prepare_prompt(resume_text, job_description):
     
     Evaluate the following resume against the job description. Consider that the job market 
     is highly competitive. Provide detailed feedback for resume improvement.
-    
+    Generate all the responses in 2nd person mode.
     Resume:
     {resume_text}
     

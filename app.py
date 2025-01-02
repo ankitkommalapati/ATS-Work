@@ -32,24 +32,24 @@ def main():
 
     # Sidebar
     with st.sidebar:
-        st.title("🎯 Smart ATS")
+        st.title("🏡 ATS Hub")
         st.subheader("About")
         st.write("""
-        This smart ATS helps you:
-        - Evaluate resume-job description match
-        - Identify missing keywords
-        - Get personalized improvement suggestions
+        ATS Hub helps you:
+        - Assess the alignment between the resume and job description.
+        - Detect missing keywords.
+        - Receive tailored suggestions for improvement.
         """)
 
     # Main content
-    st.title("📄 Smart ATS Resume Analyzer")
+    st.title("📄 ATS Hub Resume Analyzer")
     st.subheader("Optimize Your Resume for ATS")
     
     # Input sections with validation
     jd = st.text_area(
         "Job Description",
         placeholder="Paste the job description here...",
-        help="Enter the complete job description for accurate analysis"
+        help="Copy & Paste the complete job description for accurate analysis"
     )
     
     uploaded_file = st.file_uploader(
